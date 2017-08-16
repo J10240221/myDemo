@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>原生js懒加载</title>
+    <style type="text/css">
+        div {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            border: 2px solid #000;
+            background: #F00;
+            margin-bottom: 30px;
+            opacity: .3;
+        }
+    </style>
+</head>
+<body>
+
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+<div><img src="images/loading.gif" data-src="images/1.png"></div>
+<div><img src="images/loading.gif" data-src="images/2.png"></div>
+<div><img src="images/loading.gif" data-src="images/3.png"></div>
+</body>
+
+
+<script type="text/javascript">
+   //todo 可以优化，获取不用getTagNameEle,而用获取带data-src属性的img,这样循环的数组会越来越小，但是会增加耦合度
+   (function () {
+      //common
+      function getTagNameEle(tagName) {
+         return document.getElementsByTagName(tagName);
+      }
+
+      //获取拥有某属性的元素
+      function getAttrEle(attr) {
+         return document.querySelectorAll("[" + attr + "]")
+      }
+
+      function getIdEle(id) {
+         return document.getElementById(id);
+      }
+
+      function addEvent(obj, type, func) {
+         if (obj.addEventListener) {
+            obj.addEventListener(type, func, false);
+         } else if (obj.attachEvent) {
+            obj.attachEvent('on' + type, func);
+         }
+      }
+
+      //建立某些参数
+      var v = {
+         eleGroup: null,
+         eleTop: null,
+         eleHeight: null,
+         screenHeight: null,
+         visibleHeight: null,
+         scrollHeight: null,
+         limitHeight: null
+      }
+
+      //获取页面滚动过的高度。  解决不同浏览器兼容性问题
+      function gethadScrollTop() {
+         var hadScrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+         return hadScrollTop;
+      }
+
+      //对数据进行初始化，
+      function init(element) {
+         v.eleGroup = getTagNameEle(element)
+         v.screenHeight = document.documentElement.clientHeight;
+         for (var i = 0, j = v.eleGroup.length; i < j; i++) {
+            if (v.eleGroup[i].offsetTop <= v.screenHeight && v.eleGroup[i].getAttribute('data-src')) {
+               v.eleGroup[i].setAttribute('src', v.eleGroup[i].getAttribute('data-src'));
+               v.eleGroup[i].removeAttribute('data-src')
+            }
+         }
+      }
+
+      function lazyLoad() {
+         debugger
+         v.eleGroup = getAttrEle("data-src");//重新获取元素，优化性能
+         var hadScrollTop = gethadScrollTop();
+         v.limitHeight = hadScrollTop + document.documentElement.clientHeight/*这个是当前可视页面的高度，不能用v.screenHeight,因为后面的用户视图高度可能变化*/;
+
+         for (var i = 0, j = v.eleGroup.length; i < j; i++) {
+            if (v.eleGroup[i].offsetTop <= v.limitHeight && v.eleGroup[i].getAttribute('data-src')) {
+               v.eleGroup[i].src = v.eleGroup[i].getAttribute('data-src');
+               v.eleGroup[i].removeAttribute('data-src')
+            }
+         }
+      }
+
+      init('img')
+      addEvent(window, 'scroll', lazyLoad);
+   })();
+
+
+</script>
+
+
+</html>
