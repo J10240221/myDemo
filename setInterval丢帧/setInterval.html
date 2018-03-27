@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>setInterval的丢帧模拟(写的不是特别好180327)</title>
+</head>
+
+<body>
+  <h1>counter:</h1>
+  <div id="root"></div>
+
+  <script>
+    let counter = 0;
+    const rootDiv = document.querySelector('#root');
+
+    function grantFun() {
+      const currTime = new Date().getSeconds();
+      while (true) {
+        if (new Date().getSeconds() - currTime >= 3) {
+          break;
+        }
+      }
+    }
+
+    function showCounterInc() {
+      counter++;
+      grantFun();
+      rootDiv.innerText = counter;
+    }
+
+    setInterval(showCounterInc, 1000);
+  </script>
+</body>
+
+</html>
