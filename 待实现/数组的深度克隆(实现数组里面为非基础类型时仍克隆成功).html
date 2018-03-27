@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	Object.prototype.clone = function(){
+		var obj = {};
+		for(var key in this) {
+			if(typeof this[i] !== "object"){
+				obj[key] = this[key];
+			}else {
+				obj[key] = this[key].clone();
+			}
+		}
+		return obj;
+	}
+	Array.prototype.clone = function() {
+		let arr = [];
+		for(let i=0; i<this.length; i++){
+			if(typeof this[i] !== "object"){
+				arr.push(this[i]);
+			}else {
+				arr.push(this[i].clone());
+			}
+		}
+		return arr;
+	}
+	
+</script>
+</body>
+</html>
+
+	
