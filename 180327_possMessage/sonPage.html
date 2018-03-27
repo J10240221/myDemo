@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h1>我是子页面</h1>
+  <p>父传递的信息为：</p>
+  <div id="root"></div>
+
+  <script>
+    const rootEle = document.querySelector('#root');
+    window.addEventListener('message', function (e) {
+      console.log("e", e);
+      // IMPORTANT: Check the origin of the data! 
+      if (1) {// FIXME: 正常都要这样写 e.origin === "http://父页面的域" 避免安全问题
+        // The data has been sent from your site 
+
+        // The data sent with postMessage is stored in event.data 
+        console.log(e.data);
+      } else {
+        // The data hasn't been sent from your site! 
+        // Be careful! Do not use it. 
+        return;
+      }
+    });
+
+  </script>
+
+</body>
+
+</html>

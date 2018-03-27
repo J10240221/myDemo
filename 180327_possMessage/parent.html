@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父页面与子 iframe 的通信</title>
+</head>
+
+<body>
+
+  <h1>我是父页面</h1>
+  <p>传递的信息</p>
+  <form action="" id="form">
+    <input type="text" id="ipt" name="msg">
+    <button>发送给sonPage</button>
+  </form>
+  <iframe src="./sonPage.html" frameborder="1" id="ifrEle"></iframe>
+
+  <script>
+    var sonWin = document.querySelector('#ifrEle').contentWindow;
+
+    const form = document.querySelector('#form');
+    const ipt = document.querySelector('#ipt');
+    let sentMsg = "";
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      sentMsg = ipt.value;
+      // FIXME: 如果你明确的知道消息应该发送到哪个窗口，那么请始终提供一个有确切值的targetOrigin，而不是*。
+      // 不提供确切的目标将导致数据泄露到任何对数据感兴趣的恶意站点。
+      // 这里是因为直接是文件访问的，所以没有 targetOrigin ，没有域
+      sonWin.postMessage(sentMsg, '*')
+    })
+
+
+
+  </script>
+</body>
+
+</html>
