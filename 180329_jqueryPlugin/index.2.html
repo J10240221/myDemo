@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JQuery plugin</title>
+</head>
+
+<body>
+  <a href="1">1</a>
+  <a href="2">2</a>
+  <a href="3">3</a>
+  <a href="4">4</a>
+  <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+  <script>
+    // 支持传递传输进来的方式，
+    $.fn.myPlugin = function (option) {
+      const defaults = {
+        color: 'red',
+        fontSize: '14px',
+      };
+
+      const setting = $.extend({}, defaults, option);
+
+      this.css({
+        color: setting.color,
+        fontSize: setting.fontSize,
+      });
+      return this;
+    };
+
+    // 支持传递自定义属性方式，修改默认配置,并且支持优雅的链式操作
+    $('a').myPlugin({ color: 'yellow', fontSize: '30px' }).css({ backgroundColor: "red" });
+  </script>
+</body>
+
+</html>

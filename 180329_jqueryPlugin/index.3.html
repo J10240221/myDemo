@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JQuery plugin</title>
+</head>
+
+<body>
+  <a href="1">1</a>
+  <a href="2">2</a>
+  <a href="3">3</a>
+  <a href="4">4</a>
+  <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+  <script>
+    // 面向对象的方式优化插件的编写方式 好好学习下这种思想，
+    ; (function () {
+      //定义Beautifier的构造函数
+      function Beautifier(ele, opt) {
+        var defaults = {
+          color: 'red',
+          fontSize: '14px',
+        };
+        this.$ele = ele;
+        this.opt = $.extend({}, defaults, opt);
+      }
+
+      //定义Beautifier实例的方法
+      Beautifier.prototype.beautify = function () {
+        return this.$ele.css({
+          color: this.opt.color,
+          fontSize: this.opt.fontSize
+        });
+      }
+
+      $.fn.beautifier = function (option) {
+        const beautifier = new Beautifier(this, option);
+        return beautifier.beautify();
+      }
+    })();
+
+
+    // 支持传递自定义属性方式，修改默认配置,并且支持优雅的链式操作
+    $('a').beautifier({ color: 'yellow', fontSize: '30px' }).css({ backgroundColor: "red" });
+  </script>
+</body>
+
+</html>
+
+
+<!-- 
+  源文件是如下写的： 地址为：http://www.cnblogs.com/ajianbeyourself/p/5815689.html
+  ;(function($, window, document,undefined) {
+    //定义Beautifier的构造函数
+    var Beautifier = function(ele, opt) {
+        this.$element = ele,
+        this.defaults = {
+            'color': 'red',
+            'fontSize': '12px',
+            'textDecoration': 'none'
+        },
+        this.options = $.extend({}, this.defaults, opt)
+    }
+    //定义Beautifier的方法
+    Beautifier.prototype = {
+        beautify: function() {
+            return this.$element.css({
+                'color': this.options.color,
+                'fontSize': this.options.fontSize,
+                'textDecoration': this.options.textDecoration
+            });
+        }
+    }
+    //在插件中使用Beautifier对象
+    $.fn.myPlugin = function(options) {
+        //创建Beautifier的实体
+        var beautifier = new Beautifier(this, options);
+        //调用其方法
+        return beautifier.beautify();
+    }
+})(jQuery, window, document);
+ -->

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JQuery plugin</title>
+</head>
+
+<body>
+  <h2>$.extend() 方法(太简单了)</h2>
+  <div>仅仅是在jQuery命名空间或者理解成jQuery身上添加了一个静态方法而以。所以我们调用通过$.extend()添加的函数时直接通过$符号调用（$.myfunction()）而不需要选中DOM元素</div>
+  <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+  <script>
+    $.extend({
+      log: function () {
+        console.log('就是一个打印');
+      },
+    });
+
+    $.log();
+
+    // 最简单的插件，功能写死
+    $.fn.myPlugin = function () {
+      const defaults = {
+        color: 'red',
+        fontSize: '14px',
+      };
+      this.css({
+        color: defaults.color,
+        fontSize: defaults.fontSize,
+      });
+      return this;
+    };
+
+    $('a').myPlugin();
+
+  </script>
+</body>
+
+</html>
