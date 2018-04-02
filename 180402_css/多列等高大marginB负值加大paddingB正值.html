@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #parent {
+      overflow: hidden;
+      border: 1px solid red;
+    }
+
+    .zlL {
+      background: #f99;
+      float: left;
+      width: 40%;
+      margin-bottom: -5000px;
+      padding-bottom: 5000px;
+
+    }
+
+    .zlR {
+      width: 40%;
+      float: left;
+      background: #99f;
+      margin-bottom: -5000px;
+      padding-bottom: 5000px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>原理:</h2>
+  <div>等高布局有几种不同的方法，但目前为止我认为浏览器兼容最好最简便的应该是padding补偿法。首先把列的padding-bottom设为一个足够大的值，再把列的margin-bottom设一个与前面的padding-bottom的正值相抵消的负值，父容器设置超出隐藏，这样子父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则父容器的高度被撑到它里面最高那列的高度，其他比这列矮的列则会用它们的padding-bottom来补偿这部分高度差。因为背景是可以用在padding占用的空间里的，而且边框也是跟随padding变化的，所以就成功的完成了一个障眼法。</div>
+  <div id="parent">
+
+    <div class="zlL">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio accusamus possimus at officiis tempora aliquid eveniet
+      molestiae! Minus tenetur dolores saepe quos magni! Sit consequatur reprehenderit libero, beatae exercitationem porro!</div>
+    <div class="zlR">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque vel magnam nam quaerat itaque consectetur eos est enim,
+      quam explicabo dignissimos ea velit labore reprehenderit. Necessitatibus nisi dolores consequuntur tempora? Lorem ipsum
+      dolor sit, amet consectetur adipisicing elit. Error dolores consequuntur amet accusantium laborum aspernatur possimus
+      ducimus sit adipisci, inventore at et natus obcaecati voluptatem odit doloremque quidem pariatur dicta.</div>
+
+  </div>
+
+</body>
+
+</html>
