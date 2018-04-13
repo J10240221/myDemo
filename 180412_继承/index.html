@@ -30,8 +30,13 @@
         F.prototype = Person.prototype;
         Teacher.prototype = new F();
         F = null;
+        之所以要这样操作，而不直接   Teacher.prototype = Person.prototype;
+        是因为： 如果直接这样，子的prototype就指向了父，子添加prototype属性，会影响父！
+        而现在这样，子的 prototype 指向的是 new F()实例，添加属性是添加在new F()对象上麦年，不会影响到父，而且 父添加属性又能作用到自己，自己也能通过原型链，使用父的原型上的所有方法，所以这样就完美了！  
+
+        现在的原型指向的图 如下
+        Teacher ---prototype--->  new F()  ---prototype--->   Person.prototype
     */
-    
     Teacher.prototype = Object.create(Person.prototype);
     Teacher.prototype.constructor = Teacher;
   </script>
