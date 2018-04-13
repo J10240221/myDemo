@@ -83,6 +83,7 @@
     <button id="open" class="btn btn-primary">打开</button>
     <button id="delete" class="btn btn-default">关闭</button>
   </div>
+  <p>参考文件地址： https://segmentfault.com/a/1190000007053934</p>
 
   <script>
     (() => {
@@ -131,7 +132,7 @@
       
        2 利用 || 语法判断如果 instance 不存在则执行后者的实例化 Modal 方法，存在则直接返回 instance ，确保了只存在一个弹框实例
       */
-      const createInstance = ((id, htmlContent) => {
+      const getInstance = ((id, htmlContent) => {
         let instance;
         return function (id, htmlContent) {
           return instance || (instance = new Modal(id, htmlContent));
@@ -141,7 +142,7 @@
       const operate = {
         setModal: null,
         open: function (id, htmlContent) {
-          this.setModal = createInstance(id, htmlContent);
+          this.setModal = getInstance(id, htmlContent);
           this.setModal.create();
         },
         delete: function () {
