@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>继承</title>
+</head>
+
+<body>
+  <script>
+    function Person(name) {
+      this.name = name;
+      this.age = 20;
+    }
+    Person.prototype.say = function () {
+      console.log(`我的名字是：${this.name}`);
+    }
+
+    // Teacher 是子类，需要继承 Person
+    function Teacher(name, subject) {
+      Person.call(this, name);
+      this.subject = subject;
+    }
+
+    /* 
+      下面的这个也等于
+        function F(){}
+        F.prototype = Person.prototype;
+        Teacher.prototype = new F();
+        F = null;
+    */
+    
+    Teacher.prototype = Object.create(Person.prototype);
+    Teacher.prototype.constructor = Teacher;
+  </script>
+
+</body>
+
+</html>
