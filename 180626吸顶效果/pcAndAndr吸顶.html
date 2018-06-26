@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>pc 和 安卓 的顶定 方法</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .banner {
+      height: 200px;
+    }
+
+    .sticky {
+      height: 40px;
+      background-color: skyblue;
+      border: 1px solid silver;
+    }
+
+    .content {
+      height: 2500px;
+      background: rgba(222, 222, 222, 0.5);
+    }
+
+    .fixed-top {
+      position: fixed;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner">Banner图</div>
+  <div class="sticky">吸顶元素</div>
+  <div class="content">
+    <br>
+    <br>
+    <br> 这里是很长很长的文本
+    <br>
+    <br>
+    <br> 这里是很长很长的文本
+    <br>
+    <br>
+    <br> 这里是很长很长的文本
+    <br>
+    <br>
+    <br> 这里是很长很长的文本
+    <br>
+  </div>
+
+
+
+  <script>
+    var stickyEl = document.querySelector('.sticky');
+
+    // 守家占位符, 不然 变为fix 下面的高度就会突然往上
+    var stickyHolder = document.createElement('div');
+    stickyHolder.setAttribute("id", "stickyHolder");
+    stickyEl.parentNode.replaceChild(stickyHolder, stickyEl);
+    stickyHolder.appendChild(stickyEl);
+    stickyHolder.style.height = stickyEl.offsetHeight + "px";
+
+    var stickyT = stickyEl.offsetTop; // 这个永远是200，就是距离上方的高度
+    window.onscroll = function (e) {
+      var scrollT = (document.documentElement || document.body.parentNode || document.body).scrollTop;
+      // console.log(scrollT, stickyT);
+      if (scrollT > stickyT) {
+        stickyEl.classList.add('fixed-top');
+      }
+      else {
+        stickyEl.classList.remove('fixed-top');
+      }
+    };
+  </script>
+</body>
+
+</html>

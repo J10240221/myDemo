@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>iOS6.1+ sticky</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .banner {
+      height: 200px;
+    }
+
+    .sticky {
+      height: 40px;
+      background-color: skyblue;
+      border: 1px solid silver;
+
+      /*滚过初始位置时自动吸顶*/
+      position: -webkit-sticky;
+      position: sticky;
+      /*吸顶时的定位*/
+      top: 0;
+      left: 0;
+      /*z比下方所有z高*/
+      z-index: 9999;
+    }
+
+    .content {
+      height: 1500px;
+    }
+
+    .fixed-top {
+      position: fixed;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner">Banner图</div>
+  <div class="sticky">吸顶元素</div>
+  <div class="content">很长的内容</div>
+  <script>
+// 不需要js
+  </script>
+</body>
+
+</html>
